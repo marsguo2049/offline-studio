@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>文档翻译 · Offline Studio</title><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/studio-assets/studio.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/#batch"><span class="brand-mark">O</span><span>Offline Studio<small>本地 AI 工作台</small></span></a>
+  <p class="nav-caption">工作区</p>
+  <nav aria-label="工作区">
+    <a class="nav-item studio-link" href="/#story">▤ 故事视频</a>
+    <a class="nav-item studio-link" href="/#comic">▥ 故事漫画</a>
+    <a class="nav-item studio-link" href="/#batch">▦ 批量工具</a>
+    <a class="nav-item studio-link" href="/#settings">⚙ 服务设置</a>
+    <a class="nav-item studio-link active" href="/translate" aria-current="page">▧ 文档翻译</a>
+    <p class="nav-caption">学习与研究 · 在线链接</p>
+    <a class="nav-item studio-link" href="https://github.com/marsguo2049/my-llm" target="_blank" rel="noopener">↗ 大模型笔记</a>
+    <a class="nav-item studio-link" href="https://github.com/marsguo2049/multi-model-workflow-optimization" target="_blank" rel="noopener">↗ 工作流优化研究</a>
+  </nav>
+  <div class="sidebar-footer"><span class="local-dot"></span>在本机处理与保存<small>Offline Studio · 0.1</small></div>
+</aside>
+<div class="workspace">
+  <header class="topbar"><div><p class="eyebrow">LOCAL DOCUMENT TRANSLATION</p><h1>让理解，跨越语言。</h1><p class="subtitle">翻译 Word 文档，保留术语、进度与双语对照。</p></div><a class="offline-badge studio-link" href="/#settings">本机服务设置 →</a></header>
+  <main>
+    <div class="translation-layout">
+      <div>
+        <section class="panel"><div class="section-heading"><h2>开始一份翻译</h2><span class="studio-tag">DOCX · 英译中</span></div>
+          <p>文档上传到本机工作台，原文件保持不变。</p>
+          <label for="document">选择 Word 文档（最大 50 MB）</label><input class="studio-file" id="document" type="file" accept=".docx">
+          <button id="upload">创建翻译任务 →</button>
+          <p class="studio-message" id="upload-message" role="status"></p>
+          <p class="studio-note">当前翻译工具的提示词面向艺术史等学术文献。其他领域请先用短文核对术语与译文质量。</p>
+        </section>
+        <section class="panel"><div class="section-heading"><h2>本机任务</h2><button class="secondary" id="refresh">刷新</button></div><div id="jobs" class="studio-jobs"></div></section>
+      </div>
+      <section class="panel">
+        <div class="section-heading"><h2 id="job-title">选择或创建一个任务</h2><span class="studio-tag" id="job-state">尚未选择</span></div>
+        <p id="model" class="hint">正在读取本机设置…</p>
+        <p class="hint">先检查文档，可选提取和审校术语，再翻译并导出。再次点击“翻译 / 继续”会使用已保存的进度。</p>
+        <div class="studio-actions">
+          <button disabled class="secondary" data-action="inspect">1 检查文档</button>
+          <button disabled class="secondary" data-action="terms">提取术语</button>
+          <button disabled class="secondary" data-action="audit-terms">审校术语</button>
+          <button disabled data-action="translate">2 翻译 / 继续</button>
+          <button disabled class="secondary" data-action="render">3 导出 Word</button>
+        </div>
+        <p id="message" class="studio-message" role="status">文件与任务记录只保存在本机。</p>
+        <div id="downloads" class="studio-downloads"></div>
+        <details open><summary>运行日志</summary><pre id="log" class="studio-log">操作开始后，这里会显示进度。</pre></details>
+        <p class="hint">翻译需要 LM Studio 运行并加载模型。显存有限时，请先结束图像或视频生成，再开始翻译。</p>
+      </section>
+    </div>
+  </main>
+  <footer class="page-footer">OFFLINE STUDIO <span>创作留在本机。</span></footer>
+</div><script src="/studio-assets/translate.js"></script>
+</body></html>
