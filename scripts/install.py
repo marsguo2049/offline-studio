@@ -47,7 +47,7 @@ def fetch(name: str, item: dict) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--local', action='store_true', help='Use existing sibling repositories without copying them')
-    parser.add_argument('--minimal', action='store_true', help='Skip optional PDF/media/OCR dependencies')
+    parser.add_argument('--minimal', action='store_true', help='Skip optional PDF/OCR dependencies; required media support remains installed')
     args = parser.parse_args()
     manifest = json.loads((ROOT / 'integrations.lock.json').read_text())
     if args.local:

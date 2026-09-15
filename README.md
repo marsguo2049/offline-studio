@@ -28,7 +28,8 @@ python scripts/install.py --local
 Local mode uses those checkouts as-is; it does not enforce their pinned revisions.
 On macOS/Linux, run `python3 scripts/install.py`, then `.venv/bin/offline-studio`
 from the repository root. Windows is the primary locally validated platform.
-Use `--minimal` during installation to omit optional PDF/media/OCR dependencies.
+Use `--minimal` during installation to omit optional PDF/OCR dependencies.
+PyAV remains required because the creative backend imports its video module at startup.
 
 ## Tools
 

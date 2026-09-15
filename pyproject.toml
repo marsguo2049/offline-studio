@@ -9,7 +9,7 @@ description = "A unified local AI workbench for documents, images, comics and vi
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "PolyForm Noncommercial License 1.0.0"}
-dependencies = ["comfyui-py-workflow==0.5.0", "python-docx>=1.2,<2", "requests>=2.32,<3"]
+dependencies = ["comfyui-py-workflow[media]==0.5.0", "python-docx>=1.2,<2", "requests>=2.32,<3"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

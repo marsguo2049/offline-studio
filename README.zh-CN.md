@@ -23,7 +23,8 @@ python scripts/install.py --local
 ```
 
 本地接入模式直接使用现有版本，不强制它们与锁定版本一致。
-安装时可用 `--minimal` 跳过可选 PDF、媒体与 OCR 依赖。
+安装时可用 `--minimal` 跳过可选 PDF 与 OCR 依赖。
+PyAV 是后端启动必需的媒体依赖，最小安装也会保留。
 
 ## 第一版功能
 
