@@ -6,5 +6,7 @@ if not exist ".venv\Scripts\python.exe" (
   pause
   exit /b 1
 )
-".venv\Scripts\python.exe" -m offline_studio.server %*
-if errorlevel 1 pause
+".venv\Scripts\python.exe" scripts\launch.py %*
+set "STUDIO_EXIT_CODE=%ERRORLEVEL%"
+if not "%STUDIO_EXIT_CODE%"=="0" pause
+exit /b %STUDIO_EXIT_CODE%

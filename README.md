@@ -16,6 +16,8 @@ the exact integration revisions in `integrations.lock.json` and installs Python
 dependencies in `.venv`. Download models and configure LM Studio / ComfyUI separately.
 
 Then double-click **`start-studio.bat`**, opening **http://127.0.0.1:7870/#batch**.
+It can run alongside ComfyUI Workbench on port `7860`. Reopening the launcher
+opens the existing studio instead of starting another server against its data.
 Startup itself does not download models or contact cloud inference services.
 Tutorial/research links open GitHub only when clicked.
 
