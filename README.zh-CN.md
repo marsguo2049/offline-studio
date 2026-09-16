@@ -57,10 +57,10 @@ PyAV 是后端启动必需的媒体依赖，最小安装也会保留。
 
 | 应用 | 本地地址 | 在线预览 | 范围 |
 | --- | --- | --- | --- |
-| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI 专用预览](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | 批量图片、首尾帧视频、ComfyUI 服务 |
+| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI 专用预览](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | 故事视频、故事漫画、批量图片、首尾帧视频及其服务设置 |
 | Offline Studio | http://127.0.0.1:7870/#batch | [完整工作台预览](https://marsguo2049.github.io/offline-studio/#batch) | ComfyUI 工具、故事/漫画、翻译、LM Studio |
 
-故事/漫画的页面、脚本和汇总 HTTP 入口由本仓库维护；批量界面片段、批量脚本与
+本仓库维护汇总页面与入口；ComfyUI 仓库也提供完整的故事/漫画界面。批量界面片段、批量脚本与
 执行器从固定版本的 ComfyUI 后端复用。两个应用的任务目录独立，旧数据不搬移或删除。
 
 完整预览还包含[翻译页面](https://marsguo2049.github.io/offline-studio/translate.html)。

@@ -65,7 +65,7 @@ Stopping the server interrupts translation; saved progress can be resumed.
 
 | Application | Local URL | Public preview | Scope |
 | --- | --- | --- | --- |
-| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI preview](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | Batch image editing, first/last-frame video, ComfyUI service |
+| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI preview](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | Story video/comic, batch images/videos and their service settings |
 | Offline Studio | http://127.0.0.1:7870/#batch | [Full workbench preview](https://marsguo2049.github.io/offline-studio/#batch) | ComfyUI tools, story/comic workflows, translation and LM Studio |
 
 Offline Studio owns its creative HTML, scripts and aggregate HTTP layer. The batch

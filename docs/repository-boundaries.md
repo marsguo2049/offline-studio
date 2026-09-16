@@ -1,39 +1,22 @@
 # Repository boundaries and separate applications
 
-The user requested separate ComfyUI-only and aggregate applications, both locally
-and on GitHub, while publishing the new batch first/last-frame video capability.
+- comfyui-py-workflow owns ComfyUI execution, workflows, story videos, story
+  comics, batch image editing and batch first/last-frame videos. Its Workbench
+  on port 7860 includes the LM Studio settings needed for story planning.
+- offline-studio on port 7870 aggregates those creative workflows with document
+  translation, shared settings and learning/research links.
+- Both repositories maintain their own local application shell and public UI
+  preview. Offline Studio pins the reusable ComfyUI backend to an exact commit.
+- ComfyUI's original story and comic history remains in outputs/offline-studio;
+  its newer batch jobs use outputs/comfyui-workbench/batch-jobs. Offline Studio
+  keeps its own data/ tree. No user data is moved or deleted.
+- Public previews disable uploads and model requests, use synthetic examples
+  and pre-existing public samples, and enforce connect-src 'none'.
 
-## Ownership
+Story and comic are first-class ComfyUI workflows. Their use of LM Studio for
+planning does not exclude them from the ComfyUI repository. Translation and
+general research/learning navigation belong to the aggregate application.
 
-- comfyui-py-workflow owns the ComfyUI execution library, workflow templates,
-  batch controller and reusable batch UI. Its standalone app is ComfyUI Workbench
-  on port 7860: batch images, first/last-frame videos and ComfyUI settings only.
-- offline-studio owns the aggregate creative UI and HTTP orchestration, document
-  translation, LM Studio settings and learning/research links. Its app uses 7870.
-- Existing ComfyUI-related story planning/execution Python APIs stay compatible;
-  the aggregate story/comic user interface belongs to offline-studio. This avoids
-  breaking existing CLI workflows during the UI ownership transition.
-- The apps use independent data roots. No existing user data is moved or deleted.
-
-## Public previews
-
-Each repository builds its own docs/ preview from its own local HTML. The ComfyUI
-preview shows no LM Studio or translation controls. Offline Studio includes all
-creative tools and a translation preview. All previews prohibit network API calls
-with CSP, disable real actions and use only explicit public synthetic examples.
-Batch image/video selection remains interactive without backend requests.
-
-## Implementation and validation
-
-1. Preserve the user's pending batch video changes and the current creative UI.
-2. Implement the ComfyUI-only handler, page, preview and boundary tests.
-3. Give Offline Studio its own creative page/handler; reuse the new batch module.
-4. Build separate previews, document entry points and retain old data in place.
-5. Test UI/API isolation, pairing preview and both builds; review code and scan
-   staged publication content for private data before either GitHub push.
-6. Publish ComfyUI first, pin that exact commit in Offline Studio, update the local
-   installed backend, then publish and verify both Pages sites and CI runs.
-
-Ruling: directly related ComfyUI workflow helper APIs remain backward compatible;
-only the standalone UI and public product identity are narrowed. Unrelated apps
-and aggregate HTTP/UI ownership belong exclusively to Offline Studio.
+Before each publication, run tests and both preview checks, review the exact
+staged content for sensitive/private data, then synchronize GitHub and verify
+CI, Pages and local application entry points.

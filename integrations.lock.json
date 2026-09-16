@@ -1,7 +1,7 @@
 {
   "comfyui": {
     "repository": "marsguo2049/comfyui-py-workflow",
-    "commit": "05b0f3d834c3f67a0b116ad81e9736f6de42554f"
+    "commit": "1c11f010e73cf02420189bbcb13807704f91e423"
   },
   "translator": {
     "repository": "marsguo2049/local-llm-word-translator",
