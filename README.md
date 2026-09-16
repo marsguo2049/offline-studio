@@ -2,7 +2,7 @@
 
 **A unified local AI workbench for documents, images, comics and video.**
 
-[简体中文](README.zh-CN.md) · [Architecture](docs/design.md)
+[简体中文](README.zh-CN.md) · [Architecture](docs/repository-boundaries.md) · [UI preview](https://marsguo2049.github.io/offline-studio/#batch)
 
 Offline Studio brings independent local applications into one browser interface:
 batch image editing, story-to-comic, story-to-video and resumable Word translation.
@@ -61,10 +61,29 @@ Stopping the server interrupts translation; saved progress can be resumed.
 | [multi-model-workflow-optimization](https://github.com/marsguo2049/multi-model-workflow-optimization) | Model selection, evaluation and workflow optimization research |
 | [my-llm](https://github.com/marsguo2049/my-llm) | Deployment tutorials and learning notes |
 
-The existing [online UI preview](https://marsguo2049.github.io/comfyui-py-workflow/#batch)
-demonstrates the creative interface. It does not run local jobs and does not yet
-show this repository's translation page. This release reuses the pinned creative
-UI through a small adapter; a wholesale UI migration is not part of v0.1.
+## Separate local apps and previews
+
+| Application | Local URL | Public preview | Scope |
+| --- | --- | --- | --- |
+| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI preview](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | Batch image editing, first/last-frame video, ComfyUI service |
+| Offline Studio | http://127.0.0.1:7870/#batch | [Full workbench preview](https://marsguo2049.github.io/offline-studio/#batch) | ComfyUI tools, story/comic workflows, translation and LM Studio |
+
+Offline Studio owns its creative HTML, scripts and aggregate HTTP layer. The batch
+fragment, batch controller and batch JavaScript come from the pinned ComfyUI backend.
+Both applications offer batch first/last-frame video: separate first/last image
+sets, single-frame reuse, natural-order or basename pairing, duration, aspect ratio,
+resolution, seed, progress and video downloads. This tool needs only ComfyUI.
+
+Each preview is built from its own local app and contains no live API calls.
+The full preview also has a [translation page](https://marsguo2049.github.io/offline-studio/translate.html).
+All demonstration text is fictional; the bicycle media are the backend's existing
+public examples, copied by explicit filename and verified byte-for-byte.
+Run `python scripts/build_ui_preview.py` after installing the pinned integrations;
+CI uses `--check`. `--comfy-root` supports a local development checkout.
+
+After updating this repository, rerun `install.bat` and restart the local service.
+Updated ComfyUI revisions install into separate versioned integration directories;
+previous installations and user data are preserved.
 
 ## Local data
 
@@ -80,7 +99,7 @@ no existing private files are imported or published.
 
 The server binds only to loopback. `--data-dir` selects a different data directory;
 `--translator` selects a local `translate_docx.py`. The adapter relies on the pinned
-ComfyUI handler/HTML contract; update its pin only after the contract tests pass.
+ComfyUI batch fragment/API contract; update its pin only after the contract tests pass.
 Tests use synthetic documents and no model inference.
 
 ## License

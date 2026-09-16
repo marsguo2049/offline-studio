@@ -1,5 +1,8 @@
 # Offline Studio v0.1
 
+Historical bootstrap design. UI ownership and application boundaries were updated
+in v0.2; see [repository-boundaries.md](repository-boundaries.md).
+
 Approved direction: a unified local AI workbench backed by independent repositories.
 
 The first release extends the existing ComfyUI UI through an adapter, keeping its

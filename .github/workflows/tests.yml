@@ -9,5 +9,6 @@ jobs:
         with:
           python-version: '3.11'
       - run: python scripts/install.py --minimal
+      - run: python scripts/build_ui_preview.py --check
       - run: .venv/bin/python -m pytest -q
       - run: .venv/bin/python scripts/privacy_check.py

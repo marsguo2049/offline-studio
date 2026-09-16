@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import argparse
-import html
 import threading
 import webbrowser
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from comfyui_py_workflow.local_ui import StudioRequestHandler, SingleInstanceHTTPServer, WEB_ROOT
+from comfyui_py_workflow.local_ui import SingleInstanceHTTPServer, WEB_ROOT
+from .creative_http import CreativeRequestHandler as StudioRequestHandler
+from .ui import ASSETS, render_workbench
 from comfyui_py_workflow.studio import OfflineStudio
 from comfyui_py_workflow.batch_studio import BatchStudio
 from comfyui_py_workflow.comic_studio import ComicStudio
@@ -16,26 +17,8 @@ from .config import atomic_json, load_settings, validate_settings
 from .translation import TranslationJobs
 from .locking import DataDirectoryLock
 
-ASSETS = Path(__file__).with_name('web')
-NAVIGATION = '''<a class="nav-item studio-link" href="/translate">▧ 文档翻译</a>
-<p class="nav-caption">学习与研究 · 在线链接</p>
-<a class="nav-item studio-link" href="https://github.com/marsguo2049/my-llm" target="_blank" rel="noopener">↗ 大模型笔记</a>
-<a class="nav-item studio-link" href="https://github.com/marsguo2049/multi-model-workflow-optimization" target="_blank" rel="noopener">↗ 工作流优化研究</a>'''
-
-
 def workbench_html(settings: dict) -> str:
-    source = (WEB_ROOT / 'index.html').read_text(encoding='utf-8')
-    if '</nav>' not in source or '<script src="/static/app.js"></script>' not in source:
-        raise RuntimeError('ComfyUI UI contract changed; install the pinned integration version.')
-    source = source.replace('</nav>', NAVIGATION + '</nav>', 1)
-    source = source.replace('本地创作工作台', '本地 AI 工作台').replace('<small>ComfyUI Py Workflow</small>', '<small>Offline Studio · 0.1</small>')
-    source = source.replace('</head>', '<link rel="stylesheet" href="/studio-assets/studio.css"></head>')
-    source = source.replace('value="http://127.0.0.1:1234/v1"', f'value="{html.escape(settings["lm_studio_url"], quote=True)}"')
-    source = source.replace('value="http://127.0.0.1:8188"', f'value="{html.escape(settings["comfyui_url"], quote=True)}"')
-    if settings['model']:
-        model = html.escape(settings['model'], quote=True)
-        source = source.replace('<option value="">等待检测</option>', f'<option value="{model}">{model}</option>')
-    return source.replace('<script src="/static/app.js"></script>', '<script src="/studio-assets/settings.js"></script>\n<script src="/static/app.js"></script>')
+    return render_workbench(settings, WEB_ROOT)
 
 
 class Handler(StudioRequestHandler):

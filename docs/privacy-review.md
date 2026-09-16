@@ -25,8 +25,11 @@ the matching values. Pattern matching is not a guarantee that all sensitive pros
 can be recognized; manual review remains part of the publication process.
 
 All document tests use generated synthetic content. Browser test documents,
-settings and logs stay in ignored local data. No user documents, prompts, model
-weights, generated creative media or screenshots are included in this release.
+settings and logs stay in ignored local data. No user documents, private prompts,
+model weights, private generated media or screenshots are included in this release.
+The v0.2 preview adds only the ComfyUI repository's pre-existing public bicycle
+sample media, verified against independently reviewed fixed SHA-256 values from
+the already-published source, the pinned backend and the public-assets manifest.
 Public GitHub repository names and commit hashes are intentional references.
 
 Future releases should repeat the same review before pushing. GitHub Actions

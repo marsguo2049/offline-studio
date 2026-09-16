@@ -2,7 +2,7 @@
 
 **统一使用本地 AI 的工作台，支持文档翻译、图像处理、漫画与视频创作。**
 
-[English](README.md) · [架构说明](docs/design.md)
+[English](README.md) · [仓库分工](docs/repository-boundaries.md) · [完整 UI 预览](https://marsguo2049.github.io/offline-studio/#batch)
 
 工作台提供统一入口、共用服务设置和翻译任务管理。ComfyUI 执行、文档翻译、
 优化研究和学习笔记继续在各自仓库维护，通过适配器连接。
@@ -28,7 +28,7 @@ PyAV 是后端启动必需的媒体依赖，最小安装也会保留。
 
 ## 第一版功能
 
-- **批量工具**：复用现有 Qwen Image Edit 批量图片处理。
+- **批量工具**：Qwen Image Edit 批量图片处理，以及 MiniMax H3 批量首尾帧视频。首尾帧独立选择，支持单图复用、自然排序/同名配对、时长、比例、分辨率和种子设置。只需 ComfyUI。
 - **故事漫画 / 故事视频**：复用分镜审阅、生成与导出流程。
 - **文档翻译**：上传 DOCX、检查文档、提取/审校术语、翻译/继续、导出中文与中英对照 Word。
 - **服务设置**：LM Studio、ComfyUI 地址和选定模型保存到本机，供工具共用。
@@ -53,9 +53,25 @@ PyAV 是后端启动必需的媒体依赖，最小安装也会保留。
 | [multi-model-workflow-optimization](https://github.com/marsguo2049/multi-model-workflow-optimization) | 模型选择、调度与优化研究 |
 | [my-llm](https://github.com/marsguo2049/my-llm) | 部署教程与使用笔记 |
 
-第一版通过适配器沿用现有界面，没有复制一整套 ComfyUI 源码。
-[原有在线预览](https://marsguo2049.github.io/comfyui-py-workflow/#batch)继续展示创作页面，
-不执行真实任务，也尚未展示新翻译页。
+## 本地与在线预览分别独立
+
+| 应用 | 本地地址 | 在线预览 | 范围 |
+| --- | --- | --- | --- |
+| ComfyUI Workbench | http://127.0.0.1:7860/#batch | [ComfyUI 专用预览](https://marsguo2049.github.io/comfyui-py-workflow/#batch) | 批量图片、首尾帧视频、ComfyUI 服务 |
+| Offline Studio | http://127.0.0.1:7870/#batch | [完整工作台预览](https://marsguo2049.github.io/offline-studio/#batch) | ComfyUI 工具、故事/漫画、翻译、LM Studio |
+
+故事/漫画的页面、脚本和汇总 HTTP 入口由本仓库维护；批量界面片段、批量脚本与
+执行器从固定版本的 ComfyUI 后端复用。两个应用的任务目录独立，旧数据不搬移或删除。
+
+完整预览还包含[翻译页面](https://marsguo2049.github.io/offline-studio/translate.html)。
+两个预览均禁止后台 API 调用，上传和生成按钮被禁用；可以切换批量图片/视频查看界面。
+示例文字为公开虚构内容，单车素材来自已有公开示例，构建与测试核对文件内容一致。
+
+安装固定版本依赖后运行 `python scripts/build_ui_preview.py` 更新预览，CI 通过
+`--check` 检查同步；开发时可用 `--comfy-root` 指向本地 ComfyUI 仓库。
+
+更新本仓库后重新运行 `install.bat`，再重启工作台。新 ComfyUI 后端会安装到独立的
+版本目录，保留旧安装目录和所有用户数据。
 
 ## 数据与验证
 

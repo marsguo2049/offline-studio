@@ -17,7 +17,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def fetch(name: str, item: dict) -> Path:
-    target = ROOT / 'integrations' / name
+    # Keep previous ComfyUI revisions in place; upgrading must not overwrite a
+    # running backend or discard locally inspected source trees.
+    folder = f'comfyui-{item["commit"][:12]}' if name == 'comfyui' else name
+    target = ROOT / 'integrations' / folder
     marker = target / '.studio-revision'
     if target.exists():
         if marker.exists() and marker.read_text().strip() == item['commit']:
