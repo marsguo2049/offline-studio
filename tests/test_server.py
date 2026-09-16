@@ -1,5 +1,6 @@
 import json
 import threading
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -26,6 +27,39 @@ def test_aggregate_owns_creative_page():
     page = (ASSETS / 'creative.html').read_text(encoding='utf-8')
     assert '<!-- COMFYUI_BATCH -->' in page
     assert 'id="view-story"' in page and 'id="view-comic"' in page
+
+
+def test_sidebar_navigation_uses_fixed_width_icon_spans():
+    """Every sidebar item must use the same icon box on both pages."""
+    from offline_studio.ui import ASSETS
+
+    class Sidebar(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.stack = []
+            self.items = []
+
+        def handle_starttag(self, tag, attrs):
+            attributes = dict(attrs)
+            classes = attributes.get('class', '').split()
+            if tag in {'a', 'button'} and 'nav-item' in classes:
+                self.items.append({'tag': tag, 'icon_span': False})
+                self.stack.append(('nav-item', len(self.items) - 1))
+            elif tag == 'span' and self.stack and self.stack[-1][0] == 'nav-item':
+                self.items[self.stack[-1][1]]['icon_span'] = True
+                self.stack.append(('span', None))
+            else:
+                self.stack.append((tag, None))
+
+        def handle_endtag(self, tag):
+            if self.stack:
+                self.stack.pop()
+
+    for html in [workbench_html(DEFAULTS), (ASSETS / 'translate.html').read_text(encoding='utf-8')]:
+        sidebar = Sidebar()
+        sidebar.feed(html)
+        assert len(sidebar.items) >= 5
+        assert all(item['icon_span'] for item in sidebar.items)
 
 
 @pytest.fixture

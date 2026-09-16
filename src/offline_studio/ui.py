@@ -3,10 +3,10 @@ import html
 from pathlib import Path
 
 ASSETS = Path(__file__).with_name('web')
-NAVIGATION = '''<a class="nav-item studio-link" href="/translate">▧ 文档翻译</a>
+NAVIGATION = '''<a class="nav-item studio-link" href="/translate"><span aria-hidden="true">▧</span>文档翻译</a>
 <p class="nav-caption">学习与研究 · 在线链接</p>
-<a class="nav-item studio-link" href="https://github.com/marsguo2049/my-llm" target="_blank" rel="noopener">↗ 大模型笔记</a>
-<a class="nav-item studio-link" href="https://github.com/marsguo2049/multi-model-workflow-optimization" target="_blank" rel="noopener">↗ 工作流优化研究</a>'''
+<a class="nav-item studio-link" href="https://github.com/marsguo2049/my-llm" target="_blank" rel="noopener"><span aria-hidden="true">↗</span>大模型笔记</a>
+<a class="nav-item studio-link" href="https://github.com/marsguo2049/multi-model-workflow-optimization" target="_blank" rel="noopener"><span aria-hidden="true">↗</span>工作流优化研究</a>'''
 
 
 def render_workbench(settings: dict, comfy_web: Path) -> str:
